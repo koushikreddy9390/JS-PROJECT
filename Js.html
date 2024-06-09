@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz</title>
+    <style>
+      body {
+        font-family: "Open Sans", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: url(./background.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        padding-top: 70px;
+      }
+
+      nav {
+        box-sizing: border-box;
+        height: 70px;
+        width: 100%;
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+
+      .quiz-container {
+        background-color: white;
+        width: 600px;
+        margin-bottom: 100px;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      ul li {
+        list-style-type: none;
+        margin-bottom: 10 px;
+      }
+      ul li label {
+        cursor: pointer;
+      }
+      ul {
+        padding: 0;
+      }
+      .quiz-header {
+        padding: 1rem;
+      }
+      h2 {
+        padding: 1rem;
+        text-align: center;
+        margin: 0;
+      }
+
+      button {
+        background-color: #7b339b;
+        color: #fff;
+        border: none;
+        display: block;
+        width: 100%;
+        cursor: pointer;
+        font-size: 1.1rem;
+        font-family: "Open Sans", sans-serif;
+        padding: 1.1rem;
+      }
+      button:hover {
+        background-color: #732d91;
+      }
+      button:focus {
+        outline: none;
+        background-color: #5e3370;
+      }
+      li {
+        list-style: none;
+      }
+
+      label.quizName {
+        font-size: 50px;
+        line-height: 80px;
+        text-shadow: 0px 2px black;
+        color: white;
+        top: 0;
+        margin-left: 30px;
+      }
+      nav ul {
+        float: right;
+        margin-right: 100px;
+        padding-bottom: 5px;
+      }
+      nav ul li {
+        display: inline-block;
+        margin: 0 5px;
+        line-height: 2px;
+      }
+      nav ul li a {
+        color: white;
+        font-size: 17px;
+        padding: 7px 13px;
+        border-radius: 5px;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      a:hover {
+        color: #c40094;
+      }
+      nav a {
+        text-decoration: none;
+      }
+      div h1 {
+        text-align: center;
+      }
+      li label {
+        font-weight: bold;
+      }
+      @media screen and (max-width: 460px) {
+        nav ul {
+          float: left;
+          display: flex;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="Quiz.html"> <label class="quizName">QUIZ</label> </a>
+      <ul>
+        <!-- <li><a href="./Quiz.html">Home</a></li> -->
+        <li><a href="./Html.html">HTML</a></li>
+        <li><a href="./Css.html">CSS</a></li>
+        <li><a href="./Js.html">JAVASCRIPT</a></li>
+      </ul>
+    </nav>
+
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h1>Java Script Quiz</h1>
+        <h2 id="question">Question Text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer" />
+            <label for="a" id="a_text">Option</label>
+          </li>
+          <li>
+            <input type="radio" name="answer" id="b" class="answer" />
+            <label for="b" id="b_text">Option</label>
+          </li>
+          <li>
+            <input type="radio" name="answer" id="c" class="answer" />
+            <label for="c" id="c_text">Option</label>
+          </li>
+          <li>
+            <input type="radio" name="answer" id="d" class="answer" />
+            <label for="d" id="d_text">Option</label>
+          </li>
+        </ul>
+      </div>
+      <div
+        id="correct-answer"
+        style="
+          color: black;
+          display: none;
+          font-size: larger;
+          font-weight: bolder;
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+            sans-serif;
+        "
+      ></div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+    const quizData =[
+  {
+    question: "1) Which type of JavaScript language is ___?",
+    a: "Object-Oriented",
+    b: "Object-Based",
+    c: "Assembly-language",
+    d: "High-level",
+    correct: "b",
+  },
+  {
+    question: "2) Which one of the following is also known as Conditional Expression:",
+    a: "Alternative to if-else",
+    b: "Switch statement",
+    c: "If-then-else statement",
+    d: "immediate if",
+    correct: "d",
+  },
+  {
+    question: "3) In JavaScript, what is a block of statement?",
+    a: "Conditional block",
+    b: "block that combines a number of statements into a single compound statement",
+    c: "both conditional block and a single statement",
+    d: "block that contains a single statement",
+    correct: "b",
+  },
+  {
+    question: "4) When interpreter encounters an empty statements, what it will do:",
+    a: "Shows a warning",
+    b: "Prompts to complete the statement",
+    c: "Throws an error",
+    d: "Ignores the statements",
+    correct: "d",
+  },
+  {
+    question: "5) The 'function' and 'var' are known as:",
+    a: "Keywords",
+    b: "Data types",
+    c: "Declaration statements",
+    d: "Prototypes",
+    correct: "c",
+  },
+  {
+    question: "6) Which of the following variables takes precedence over the others if the names are the same?",
+    a: "Global variable",
+    b: "The local element",
+    c: "The two of the above",
+    d: "None of the above",
+    correct: "b",
+  },
+  {
+    question: "7) Which one of the following is the correct way for calling the JavaScript code?",
+    a: "Preprocessor",
+    b: "Triggering Event",
+    c: "RMI",
+    d: "Function/Method",
+    correct: "d",
+  },
+  {
+    question: "8) In the JavaScript, which one of the following is not considered as an error:",
+    a: "Syntax error",
+    b: "Missing of semicolons",
+    c: "Division by zero",
+    d: "Missing of Bracket",
+    correct: "c",
+  },
+  {
+    question: "9) Which of the following number object function returns the value of the number?",
+    a: "toString()",
+    b: "valueOf()",
+    c: "toLocaleString()",
+    d: "toPrecision()",
+    correct: "b",
+  },
+  {
+    question: "10) In JavaScript, what will be used for calling the function definition expression:",
+    a: "Function prototype",
+    b: "Function literal",
+    c: "Function calling",
+    d: "Function declaration",
+    correct: "b",
+  },
+  {
+    question: "11) Which of the following function of String object returns the calling string value converted to lower case?",
+    a: "toLocaleLowerCase()",
+    b: "toLowerCase()",
+    c: "toString()",
+    d: "substring()",
+    correct: "b",
+  },
+  {
+    question: "12) In JavaScript, what is a closure?",
+    a: "A function having access to the parent scope, even after the parent function has closed",
+    b: "A function that is executed as soon as it is defined",
+    c: "The local variables within a function",
+    d: "An inner function that is stored for later use",
+    correct: "a",
+  },
+  {
+    question: "13) What is the purpose of 'this' keyword in JavaScript?",
+    a: "To refer to the current function",
+    b: "To refer to the global object",
+    c: "To refer to the calling object",
+    d: "To refer to a specific element",
+    correct: "c",
+  },
+  {
+    question: "14) What is the correct syntax for referring to an external script called 'app.js'?",
+    a: "<script href='app.js'>",
+    b: "<script name='app.js'>",
+    c: "<script src='app.js'>",
+    d: "<script file='app.js'>",
+    correct: "c",
+  },
+  {
+    question: "15) The '===' operator in JavaScript is used for what purpose?",
+    a: "Assignment",
+    b: "Comparing values and types",
+    c: "Comparing values",
+    d: "Comparing types",
+    correct: "b",
+  },
+  {
+    question: "16) What will the following code return: Boolean(10 > 9)",
+    a: "NaN",
+    b: "false",
+    c: "true",
+    d: "SyntaxError",
+    correct: "c",
+  },
+  {
+    question: "17) What is the JavaScript syntax for printing values in Console?",
+    a: "print(5)",
+    b: "console.log(5);",
+    c: "console.print(5);",
+    d: "print.console(5);",
+    correct: "b",
+  },
+  {
+    question: "18) What is the method in JavaScript used to remove the whitespace at the beginning and end of any string ?",
+    a: "strip()",
+    b: "trim()",
+    c: "stripped()",
+    d: "trimmed()",
+    correct: "b",
+  },
+  {
+    question: "19) Which JavaScript label catches all the values, except for the ones specified?",
+    a: "catch",
+    b: "label",
+    c: "try",
+    d: "default",
+    correct: "d",
+  },
+  {
+    question: "20) What are the three important manipulations done in a for loop on a loop variable in JavaScript?",
+    a: "The initialization, the incrementation, and update",
+    b: "The initialization, the test, and the update",
+    c: "The initialization, the incrementation, and the decrementation",
+    d: "The test, the incrementation, and the exit",
+    correct: "b",
+  },
+  {
+    question: "21) What keyword is used to check whether a given property is valid or not?",
+    a: "in",
+    b: "is in",
+    c: "exists",
+    d: "lies",
+    correct: "a",
+  },
+  {
+    question: "22) What function of an Array object calls a function for each element in the array?",
+    a: "forEach()",
+    b: "every()",
+    c: "forEvery()",
+    d: "each()",
+    correct: "a",
+  },
+  {
+    question: "23) What is the HTML tag under which one can write the JavaScript code?",
+    a: "<javascript>",
+    b: "<scripted>",
+    c: "<script>",
+    d: "<js>",
+    correct: "c",
+  },
+  {
+    question: "24) Which of the following is not a valid keyword in JavaScript?",
+    a: "interface",
+    b: "throws",
+    c: "program",
+    d: "short",
+    correct: "c",
+  },
+  {
+    question: "25) What is the purpose of the 'new' keyword in JavaScript?",
+    a: "To create a new instance of a class",
+    b: "To declare a new variable",
+    c: "To execute a new function",
+    d: "To assign a new value to a variable",
+    correct: "a",
+  },
+];
+
+
+      const quiz = document.getElementById("quiz");
+      const answerElements = document.querySelectorAll(".answer");
+      const questionElement = document.getElementById("question");
+      const a_text = document.getElementById("a_text");
+      const b_text = document.getElementById("b_text");
+      const c_text = document.getElementById("c_text");
+      const d_text = document.getElementById("d_text");
+      const submitButton = document.getElementById("submit");
+
+      let currentQuiz = 0;
+      let score = 0;
+
+      const deselectAnswers = () => {
+        answerElements.forEach((answer) => (answer.checked = false));
+      };
+
+      const getSelected = () => {
+        let answer;
+        answerElements.forEach((answerElement) => {
+          if (answerElement.checked) answer = answerElement.id;
+        });
+        return answer;
+      };
+
+      const loadQuiz = () => {
+        deselectAnswers();
+        const currentQuizData = quizData[currentQuiz];
+        questionElement.innerHTML = currentQuizData.question;
+        a_text.innerText = currentQuizData.a;
+        b_text.innerText = currentQuizData.b;
+        c_text.innerText = currentQuizData.c;
+        d_text.innerText = currentQuizData.d;
+
+        const correctAnswerElement = document.getElementById("correct-answer");
+        correctAnswerElement.style.display = "none";
+      };
+      loadQuiz();
+
+      submitButton.addEventListener("click", () => {
+        const answer = getSelected();
+        const correctAnswerElement = document.getElementById("correct-answer");
+
+        if (answer) {
+          const currentQuizData = quizData[currentQuiz];
+
+          const isCorrect = answer === currentQuizData.correct;
+
+          if (isCorrect) {
+            quiz.style.backgroundColor = "#5cb85c";
+            score++;
+            correctAnswerElement.style.display = "none";
+          } else {
+            quiz.style.backgroundColor = "#d9534f";
+            correctAnswerElement.innerText = `Correct Answer: ${
+              currentQuizData[currentQuizData.correct]
+            }`;
+            correctAnswerElement.style.display = "block";
+          }
+          currentQuiz++;
+          if (currentQuiz < quizData.length) {
+            setTimeout(() => {
+              quiz.style.backgroundColor = "white";
+              loadQuiz();
+            }, 2000);
+          } else {
+            quiz.innerHTML = `
+                <h2> You answered ${score}/${quizData.length} questions correctly</h2>
+                <button onclick="history.go(0)"> Play Again</button>`;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
